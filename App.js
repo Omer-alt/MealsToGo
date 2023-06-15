@@ -1,59 +1,41 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { StatusBar, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { Searchbar, PaperProvider } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
+import RestaurantScreens from "./src/features/restaurants/screens/restaurants.screens";
+import { ThemeProvider } from "styled-components/native";
+import {
+  useFonts as useOwald,
+  Oswald_400Regular,
+} from '@expo-google-fonts/oswald';
+import {
+  useFonts as useLato,
+  Lato_400Regular,
+} from '@expo-google-fonts/lato';
+
+import {theme} from './src/infrastructure/theme'
 
 // import { theme } from "./src/utils/theme.prop";
 
 export default function App() {
+  let [oswaldLoaded] = useOwald({
+    Oswald_400Regular
+  })
+  let [latoLoaded] = useLato({
+    Lato_400Regular
+  })
 
-  const [searchQuery, setSearchQuery] = useState('');
+  if(!oswaldLoaded || !latoLoaded){
+    return null
+  }
 
-  const onChangeSearch = query => setSearchQuery(query);
   return (
     <PaperProvider >
-      <SafeAreaView style={styles.container}>
-        <View style={styles.firstContient}>
-          <Searchbar
-            tyle={styles.Searchbar}
-            placeholder="Search"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-          />
-        </View>
-        <View style={styles.secondContent}>
-          <Text>list</Text>
-        </View>
-      </SafeAreaView>
+      <ThemeProvider theme={theme}>
+        <RestaurantScreens/>
+      </ThemeProvider>
+      
       <ExpoStatusBar style="auto" />
     </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
 
-  firstContient: {
-    marginTop: StatusBar.currentHeight,
-    padding: 10,
-    justifyContent: "center",
-  },
-  Searchbar:{
-    borderRadius: 0,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  secondContent: {
-    padding: 16,
-    flex: 1,
-    backgroundColor: "blue",
-  },
-});
