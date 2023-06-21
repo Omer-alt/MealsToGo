@@ -26,7 +26,7 @@ const RestaurantScreens = () => {
     const onChangeSearch = query => setSearchQuery(query);
     const res = {
         name : "Some restaurant",
-        icon:"",
+        icon: "🍔",
         photos : [
           // "https://picsum.photos/700"
           "https://www.foodiesfeed.com/wp-content/uploads/2019/06/beautiful-vibrant-shot-of-traditional-korean-meals.jpg"
@@ -34,7 +34,7 @@ const RestaurantScreens = () => {
         address : "100 some random street",
         isOpenNow : true,
         rating : 4,
-        isCloseTemporaly: false
+        isCloseTemporaly: true
     }
   return (
     <SafeArea >
