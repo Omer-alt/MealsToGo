@@ -1,0 +1,35 @@
+import { mocks } from "./mock"
+import camalize from "camelize"
+
+export const restaurantServices = ( location="37.7749295,-122.4194155" ) => {
+    return new Promise((resolve, reject)=>{
+        const mock = mocks[location]
+        if(!mock){
+            reject("Not found");
+        }
+
+        resolve(mock)
+
+    })
+}
+
+// pour rendre notre object camelcase on utilise le package npm camalize
+const restaurantTransform = ({results = []}) =>{
+
+    const mappedResult = results.map((restaurant)=>{
+        return ({
+            ...restaurant,
+            isOpenNow:restaurant.opening_hours && restaurant.opening_hours.open_now,
+            isCloseTemporaly: restaurant.business_status === "CLOSED_TEMPORARILY",
+        })
+    })
+
+    return camalize(mappedResult)
+}
+
+restaurantServices()
+.then(restaurantTransform)
+.then((transfomed)=>{
+    console.log(transfomed)
+})
+.catch((error)=>{console.log("error")});

@@ -12,7 +12,7 @@ import {
 } from '@expo-google-fonts/lato';
 import {NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { EvilIcons, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import {theme} from './src/infrastructure/theme'
 import { Text } from "./src/components/typography/text.component";
@@ -54,7 +54,7 @@ export default function App() {
     return {
       tabBarIcon: ({focused, size, color}) => {
         let iconName = TAB_ICON[route.name][0]
-        console.log(iconName)
+        // console.log(iconName)
         iconName = focused?
           TAB_ICON[route.name][0]:
           TAB_ICON[route.name][1]

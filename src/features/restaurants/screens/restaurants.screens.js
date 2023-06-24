@@ -8,7 +8,9 @@ import { SafeArea } from '../../../components/utiliy/safe-area.component';
 
 
 const SearchContainer = styled.View`
-  padding: ${(props) => props.theme.space[3]};
+  padding-top: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[2]};
+  padding-horizontal: ${(props) => props.theme.space[3]};
   justify-content: center;
 `;
 
