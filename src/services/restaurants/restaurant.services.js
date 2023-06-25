@@ -1,4 +1,4 @@
-import { mocks } from "./mock"
+import { mockImages, mocks } from "./mock"
 import camalize from "camelize"
 
 export const restaurantServices = ( location="37.7749295,-122.4194155" ) => {
@@ -14,9 +14,14 @@ export const restaurantServices = ( location="37.7749295,-122.4194155" ) => {
 }
 
 // pour rendre notre object camelcase on utilise le package npm camalize
-const restaurantTransform = ({results = []}) =>{
+export const restaurantTransform = ({results = []}) =>{
 
     const mappedResult = results.map((restaurant)=>{
+        restaurant.photos = restaurant.photos.map((p) =>{
+            return (
+                mockImages[Math.ceil(Math.random()*(mockImages.length-1))]
+            )
+        } )
         return ({
             ...restaurant,
             isOpenNow:restaurant.opening_hours && restaurant.opening_hours.open_now,
@@ -27,9 +32,4 @@ const restaurantTransform = ({results = []}) =>{
     return camalize(mappedResult)
 }
 
-restaurantServices()
-.then(restaurantTransform)
-.then((transfomed)=>{
-    console.log(transfomed)
-})
-.catch((error)=>{console.log("error")});
+

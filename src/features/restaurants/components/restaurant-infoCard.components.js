@@ -11,21 +11,20 @@ import {RestaurantCard, RestaurantCardCover,  Section, SectionEnd, Info, Adress,
 
 const RestaurantInfoCard = ({restaurant}) => {
 
-
+    console.log("restaurant : ", restaurant.item.isOpenNow)
     const {
-        name = "Some restaurant",
+        name, 
         icon,
-        photos = [
-            "https://www.foodiesfeed.com/wp-content/uploads/2019/06/beautiful-vibrant-shot-of-traditional-korean-meals.jpg"
-        ],
-        address = "100 some random street",
-        isOpenNow = true,
-        rating = 4,
+        photos = ["https://www.foodiesfeed.com/wp-content/uploads/2019/06/beautiful-vibrant-shot-of-traditional-korean-meals.jpg"] ,
+        vicinity: address  ,
+        isOpenNow ,
+        rating ,
         isCloseTemporaly,
-    } = restaurant
-
+    } = restaurant.item
     const ratingArray = new Array(Math.floor(rating)).fill(0)
+    console.log(rating)
     // const ratingArray = new Array.from(new Array(Math.floor(rating)))
+    
   return (
     <RestaurantCard elevation={5} >
         <RestaurantCardCover key={name} source={{uri: photos[0]}}/>

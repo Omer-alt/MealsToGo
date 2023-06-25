@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import {   FlatList, StatusBar, SafeAreaView, StyleSheet  } from "react-native";
-import { Searchbar } from 'react-native-paper';
+import React, { useState, useContext } from 'react';
+import {   FlatList, StyleSheet,  } from "react-native";
+import { Searchbar, ActivityIndicator, MD2Colors } from 'react-native-paper';
 import RestaurantInfoCard from '../components/restaurant-infoCard.components';
 import styled from 'styled-components/native'
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { SafeArea } from '../../../components/utiliy/safe-area.component';
+import { RestaurantsContext } from '../../../services/restaurants/restaurant.context';
 
 
 const SearchContainer = styled.View`
@@ -20,55 +21,66 @@ const RestaurantList = styled(FlatList).attrs({
   }
 })``;
 
-const RestaurantScreens = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`;
 
-    const onChangeSearch = query => setSearchQuery(query);
-    const res = {
-        name : "Some restaurant",
-        // icon: "🍔",
-        icon: "https://picsum.photos/700",
-        photos : [
-          // "https://picsum.photos/700"
-          "https://www.foodiesfeed.com/wp-content/uploads/2019/06/beautiful-vibrant-shot-of-traditional-korean-meals.jpg"
-        ],
-        address : "100 some random street",
-        isOpenNow : true,
-        rating : 4,
-        isCloseTemporaly: true
-    }
+const LoadingContainer = styled.View`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+
+
+const RestaurantScreens = () => {
+
+  const {restaurants, isLoading, error} = useContext(RestaurantsContext)
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // console.log(restaurants)
+
+  const onChangeSearch = query => setSearchQuery(query);
+  // const res = {
+  //     name : "Some restaurant",
+  //     // icon: "🍔",
+  //     icon: "https://picsum.photos/700",
+  //     photos : [
+  //       // "https://picsum.photos/700"
+  //       "https://www.foodiesfeed.com/wp-content/uploads/2019/06/beautiful-vibrant-shot-of-traditional-korean-meals.jpg"
+  //     ],
+  //     address : "100 some random street",
+  //     isOpenNow : true,
+  //     rating : 4,
+  //     isCloseTemporaly: true
+  // }
   return (
     <SafeArea >
-        <SearchContainer >
-          <Searchbar
-            elevation={2}
-            tyle={styles.Searchbar}
-            placeholder="Search"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-          />
-        </SearchContainer>
-        
-        <RestaurantList
-          data={[
-            {name: 1},
-            {name: 2},
-            {name: 3},
-            {name: 4},
-            {name: 5},
-            {name: 6},
-            {name: 7},
-            {name: 8},
-            {name: 9},
-            {name: 10},
-            {name: 11},
-            {name: 12},
-            {name: 13},
-          ]}
-          renderItem={() => <Spacer position="bottom" size="large"><RestaurantInfoCard restaurant={res} /></Spacer>}
-          keyExtractor={item => item.name}
-          contentContainerStyle={{padding: 16}}
+      {isLoading && (
+        <LoadingContainer >
+          <Loading size="large" animating={true} color={MD2Colors.blue300} />
+        </LoadingContainer >
+      )}
+      <SearchContainer >
+        <Searchbar
+          elevation={2}
+          tyle={styles.Searchbar}
+          placeholder="Search"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
         />
+      </SearchContainer>
+      
+      <RestaurantList
+        data={ restaurants }
+        renderItem={(item) => {
+          return (
+            <Spacer position="bottom" size="large">
+              <RestaurantInfoCard restaurant={item} />
+           </Spacer>)
+        }}
+        keyExtractor={item => item.name}
+        contentContainerStyle={{padding: 16}}
+      />
         
         
     </SafeArea>
