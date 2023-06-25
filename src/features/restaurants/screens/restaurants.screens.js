@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {   FlatList, StyleSheet,  } from "react-native";
 import { Searchbar, ActivityIndicator, MD2Colors } from 'react-native-paper';
 import RestaurantInfoCard from '../components/restaurant-infoCard.components';
@@ -6,14 +6,10 @@ import styled from 'styled-components/native'
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { SafeArea } from '../../../components/utiliy/safe-area.component';
 import { RestaurantsContext } from '../../../services/restaurants/restaurant.context';
+import Search from '../components/search.component';
 
 
-const SearchContainer = styled.View`
-  padding-top: ${(props) => props.theme.space[3]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-  padding-horizontal: ${(props) => props.theme.space[3]};
-  justify-content: center;
-`;
+
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle:{
@@ -35,11 +31,7 @@ const LoadingContainer = styled.View`
 const RestaurantScreens = () => {
 
   const {restaurants, isLoading, error} = useContext(RestaurantsContext)
-  const [searchQuery, setSearchQuery] = useState('');
 
-  // console.log(restaurants)
-
-  const onChangeSearch = query => setSearchQuery(query);
   // const res = {
   //     name : "Some restaurant",
   //     // icon: "🍔",
@@ -60,15 +52,8 @@ const RestaurantScreens = () => {
           <Loading size="large" animating={true} color={MD2Colors.blue300} />
         </LoadingContainer >
       )}
-      <SearchContainer >
-        <Searchbar
-          elevation={2}
-          tyle={styles.Searchbar}
-          placeholder="Search"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </SearchContainer>
+
+      <Search/>
       
       <RestaurantList
         data={ restaurants }
@@ -89,16 +74,3 @@ const RestaurantScreens = () => {
 
 export default RestaurantScreens;
 
-const styles = StyleSheet.create({
-  Searchbar:{
-    borderRadius: 0,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-});

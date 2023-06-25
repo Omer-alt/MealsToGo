@@ -11,7 +11,6 @@ import {RestaurantCard, RestaurantCardCover,  Section, SectionEnd, Info, Adress,
 
 const RestaurantInfoCard = ({restaurant}) => {
 
-    console.log("restaurant : ", restaurant.item.isOpenNow)
     const {
         name, 
         icon,
@@ -20,9 +19,10 @@ const RestaurantInfoCard = ({restaurant}) => {
         isOpenNow ,
         rating ,
         isCloseTemporaly,
+        placeId,
     } = restaurant.item
     const ratingArray = new Array(Math.floor(rating)).fill(0)
-    console.log(rating)
+    // console.log(rating)
     // const ratingArray = new Array.from(new Array(Math.floor(rating)))
     
   return (
@@ -32,8 +32,8 @@ const RestaurantInfoCard = ({restaurant}) => {
             <Text variant="label">{name}</Text>
             <Section>
                 <Rating>
-                    { ratingArray.map((item, index) => 
-                        <SvgXml key={index} xml={star} width={20} height={20}/>  
+                    { ratingArray.map((_, index) => 
+                        <SvgXml key={`star-${placeId}-${index}`} xml={star} width={20} height={20}/>  
                     )} 
                 </Rating>
                 <SectionEnd>

@@ -33,5 +33,10 @@ export const SectionEnd = styled.View`
     justify-content: flex-end;
     align-item: center;
 `;
-
+export const SearchContainer = styled.View`
+  padding-top: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[2]};
+  padding-horizontal: ${(props) => props.theme.space[3]};
+  justify-content: center;
+`;
 
