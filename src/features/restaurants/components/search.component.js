@@ -19,15 +19,15 @@ const Search = () => {
   return (
     <SearchContainer >
         <Searchbar
-            elevation={2}
-            style={styles.Searchbar}
-            placeholder="Search for a location"
-            onChangeText={onChangeSearch}
-            onIconPress={() =>{
-                search(searchQuery)
-                console.log(searchQuery)}
-            }
-            value={searchQuery}
+          elevation={2}
+          style={styles.Searchbar}
+          placeholder="Search for a location"
+          onChangeText={onChangeSearch}
+          onIconPress={() =>{
+              search(searchQuery)
+              console.log(searchQuery)}
+          }
+          value={searchQuery}
         />
     </SearchContainer>
   )
