@@ -1,9 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
+import { styled } from 'styled-components';
 import { LocationContext } from '../../../services/location/location.context';
-import {SearchContainer} from './restaurant-info-card.style';
+// import {SearchContainer} from './restaurant-info-card.style';
 
+export const SearchContainer = styled.View`
+  padding-top: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[2]};
+  padding-horizontal: ${(props) => props.theme.space[3]};
+  top: 20px;
+  z-index: 999;
+  position: absolute;
+  width: 100%;
+`;
 
 const Search = () => {
     const {keyword, search} = useContext(LocationContext)
@@ -14,11 +24,9 @@ const Search = () => {
       console.log(searchQuery)
     };
     useEffect(()=>{
-      search(searchQuery)
-    },[])
-    useEffect(()=>{
-      setSearchQuery(keyword)
+        setSearchQuery(keyword)
     },[keyword])
+    
   return (
     <SearchContainer >
         <Searchbar
@@ -47,6 +55,6 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.15,
       shadowRadius: 3.84,
-      backgroundColor:"#FFF"
+      backgroundColor:"#FFF",
     },
-  });
+});
