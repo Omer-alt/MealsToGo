@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import MapView from 'react-native-maps';
+import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, View } from 'react-native';
 import Search from '../components/search.components';
 import { RestaurantsContext } from '../../../services/restaurants/restaurant.context';
 import { LocationContext } from '../../../services/location/location.context';
+import MapCallot from '../components/map-callot.component';
 
 
 export const MapScreen = () => {
@@ -12,14 +13,14 @@ export const MapScreen = () => {
     const [latDelta, setLatDelta] = useState(0);
 
     const {lat, lng, viewport} = location;
-    console.log(location)
+    // console.log(location)
 
     useEffect(()=>{
         const northeastLat = viewport.northeast.lat;
         const southwestLat = viewport.southwest.lat;
 
         setLatDelta(northeastLat - southwestLat);
-        console.log(northeastLat - southwestLat)
+        // console.log(northeastLat - southwestLat)
 
     },[location, viewport])
 
@@ -27,24 +28,29 @@ export const MapScreen = () => {
     <View style={styles.container}>
       <Search />
       <MapView 
-        // initialRegion={{
-        //     latitude: 37.78825,
-        //     longitude: -122.4324,
-        //     latitudeDelta: 0.0922,
-        //     longitudeDelta: 0.0421,
-        // }}
-        region={{
-            latitude: lat,
-            longitude: lng,
-            latitudeDelta: latDelta,
-            longitudeDelta: 0.0421,
-        }}
-        // onRegionChangeComplete={()=}
-         style={styles.map}
+            region={{
+                latitude: lat,
+                longitude: lng,
+                latitudeDelta: latDelta,
+                longitudeDelta: 0.0421,
+            }}
+            style={styles.map}
         >
-        {restaurants.map((restaurant)=>{
-            return null;
-        })}
+        {restaurants.map((restaurant)=>
+            <Marker
+                key={restaurant.name}
+                title={restaurant.name}
+                coordinate={{ 
+                    latitude: restaurant.geometry.location.lat,
+                    longitude: restaurant.geometry.location.lng,
+                }}                  
+                description={"Marker Description"}
+            >
+                <Callout>
+                    <MapCallot restaurant={restaurant}/>
+                </Callout>
+            </Marker>
+        )}
       </MapView >
     </View>
   );
