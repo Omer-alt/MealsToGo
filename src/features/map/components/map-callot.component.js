@@ -1,15 +1,14 @@
 import React from 'react';
 import {View, Text} from 'react-native'
 import  styled  from 'styled-components/native';
+import CompactRestaurantInfo from '../../../components/restaurant/compact-restaurant-info.component';
 
 const MyText = styled.Text`
 
 `
 const MapCallot = ({restaurant}) => {
   return (
-    <View>
-        <MyText>{restaurant.name}</MyText>
-    </View>
+    <CompactRestaurantInfo restaurant={restaurant} />      
   )
 }
 

@@ -16,21 +16,22 @@ export const SearchContainer = styled.View`
 `;
 
 const Search = () => {
-    const {keyword, search} = useContext(LocationContext)
+  const {keyword, search} = useContext(LocationContext)
 
-    const [searchQuery, setSearchQuery] = useState(keyword);
-    const onChangeSearch = query => {
-      setSearchQuery(query)
-      console.log(searchQuery)
-    };
-    useEffect(()=>{
-        setSearchQuery(keyword)
-    },[keyword])
+  const [searchQuery, setSearchQuery] = useState(keyword);
+  const onChangeSearch = query => {
+    setSearchQuery(query)
+    console.log(searchQuery)
+  };
+  useEffect(()=>{
+    setSearchQuery(keyword)
+  },[keyword])
     
   return (
     <SearchContainer >
         <Searchbar
           elevation={2}
+          icon="map"
           style={styles.Searchbar}
           placeholder="Search for a location"
           onChangeText={onChangeSearch}
