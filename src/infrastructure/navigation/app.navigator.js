@@ -42,13 +42,13 @@ const AppNavigator = () => {
   }
   return (
     <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={createScreenOptions}
-        >
-          <Tab.Screen name="Restaurants" component={RestaurantStackNavigator} />         
-          <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
-        </Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={createScreenOptions}
+      >
+        <Tab.Screen name="Restaurants" component={RestaurantStackNavigator} />         
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }

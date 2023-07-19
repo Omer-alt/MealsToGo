@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import {  v4 as uuidv4 } from 'uuid';
 import { StyleSheet, View } from 'react-native';
 import Search from '../components/search.components';
 import { RestaurantsContext } from '../../../services/restaurants/restaurant.context';
@@ -7,7 +8,7 @@ import { LocationContext } from '../../../services/location/location.context';
 import MapCallot from '../components/map-callot.component';
 
 
-export const MapScreen = () => {
+export const MapScreen = ({ navigation }) => {
     const {restaurants = []} = useContext(RestaurantsContext);
     const { location } = useContext(LocationContext);
     const [latDelta, setLatDelta] = useState(0);
@@ -46,9 +47,16 @@ export const MapScreen = () => {
                 }}                  
                 description={"Marker Description"}
             >
-                <Callout>
-                    <MapCallot restaurant={restaurant}/>
-                </Callout>
+              <Callout
+                onPress={() =>  
+                  navigation.navigate("RestaurantDetail", 
+                  {
+                    restaurant:{index: uuidv4(), item: restaurant}
+                  })
+                }
+              >
+                <MapCallot restaurant={restaurant}/>
+              </Callout>
             </Marker>
         )}
       </MapView >
