@@ -9,6 +9,7 @@ const RestaurantDetailScreen = ({route}) => {
     const [dinnerExpended, setDinnerExpended] = useState(false)
     const [drinksExpended, setDrinksExpended] = useState(false)
 
+    console.log("params", route.params.restaurant)
     const { restaurant } = route.params;
 
     // casser la logic d'utilisation de SafeArea parce que cela me donnait les un margintop inutile sur android
